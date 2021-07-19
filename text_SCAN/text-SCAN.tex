@@ -120,8 +120,10 @@ We expect similar utterances to end up in the same cluster. As we already have s
 \section{Results}
 For internal dataset, we were able to arrive at interpretable dialog states.
 
-For the clustering approach, for a 20 cluster SCAN vs K-means approach. While K-means shows a distribution score of -2.64, SCAN achives -2.77 while an ideal distribution is -2.995
+\paragraph{Consistency}
+For the clustering approach, for a 20 cluster SCAN vs K-means approach, K-means shows a distribution score of -2.64, SCAN achives -2.77 while an ideal distribution is -2.995
 
+\paragraph{Confidence}
 Similarly for two intents greeting and payment\_inquiry, the results were
 
 \begin{verbatim}
@@ -139,8 +141,37 @@ Similarly for two intents greeting and payment\_inquiry, the results were
     with Scan
     nobs=5, minmax=(0, 95), mean=19.4, variance=1786.30, skewness=1.50, kurtosis=0.25
 \end{verbatim}
-    
-These clusters were then used to map transition probabilities, all transitions with probability less than 0.1 were ignored. Inspite of these 80\% of agent cluster groups transitioned to less than 3 user cluster groups. Similarly each user cluster group mapped to two agent cluster groups. The three user cluster groups for agent cluster at turns is expected as there is a rich variety of answers and most of the questions are open questions rather than yes, no type closed questions.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=6cm, height=6cm]{dialog_structure.png}
+\caption{Dialog-Structure}
+\end{figure}
+
+\paragraph{Dialog States}    
+Those clusters were then used to map transition probabilities, all transitions with probability less than 0.6 were ignored. In Figure 1, the clusters are represented by alphabets a to t, start and end are represented as by \textasciicircum and \$ symbols. 
+\newline
+As we can see in figure 1, the dialog starts from \textasciicircum to n or o. n and o are self-introduction (I am x)  and rpc-inquiry (am I talking to y). From n and o it goes to other nodes including d which is brand-intro (I am calling from brand z). There are nodes like e, j, r which are common utterances like e (the reason why I called ..), j (please hold for a minute) and r (your transaction id is) which can be reached from most of the other nodes. r and g (when will it be done) are the most common termination nodes. Given below in the table are few of the node names along with the self labels. For our understanding a manual label column has also been added. These self labels are utterances from the actual dialogs which were mined using the self-labelling method of SCAN.
+
+\begin{tabular}{ l | l | l}
+  \hline
+  cluster-name & manual-label & self-label \\
+  \hline
+  \textasciicircum & start-node & Start Node \\
+  n & self-introduction & I am X  \\
+  o & rpc-inquiry & Am I talking to Y  \\
+  d & brand-intro & I am calling from brand Z \\
+  m & product-info & This call is about product Z that you purchased last month \\
+  k & payment-inquiry & Have you made the payment for the last installment \\
+  f & amount-info & The amount is five thousand three hundred dollars \\
+  l & date-reminder & Your due date is third of June \\
+  r & number-intimation & Your transaction id is five nine eight zero double two   \\
+  g & payment-date-inquiry & When will the payment be done   \\
+  \$ & end-node & End Node
+\end{tabular}
+
+
+
 
 
 \bibliographystyle{unsrtnat}

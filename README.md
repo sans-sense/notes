@@ -9,3 +9,5 @@ We need pdflatex, which can be installed from [here](https://www.tug.org/mactex/
 For survival in TeX land [this](https://web.mit.edu/rsi/www/pdfs/new-latex.pdf) is handy.   
 VSCode does have plugins, but it needs latexmk and perl, so living with CLI.
 
+## Cleanup
+cd text_SCAN && rm *.div *.log *.pdf *.aux *.out
